@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "com.alienmod.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["PlayerEntityRenderStateMixin", "PlayerEntityRendererMixin"],
+  "injectors": { "defaultRequire": 1 }
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "alienmod",
+  "version": "${version}",
+  "name": "Alien UFO Mod",
+  "description": "Turns players into aliens, mouths move with Simple Voice Chat, and elytra flight happens inside a UFO.",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.alienmod.AlienClient"],
+    "voicechat": ["com.alienmod.voice.AlienVoicechatPlugin"]
+  },
+  "mixins": [{ "config": "alienmod.mixins.json", "environment": "client" }],
+  "depends": {
+    "fabricloader": ">=0.17.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": { "voicechat": "*" }
+}
