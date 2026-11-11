@@ -4,14 +4,12 @@ import com.alienmod.AlienClient;
 import com.alienmod.AlienRenderState;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
-import net.minecraft.client.texture.OverlayTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
@@ -26,6 +24,8 @@ public class UfoFeatureRenderer extends FeatureRenderer<PlayerEntityRenderState,
     private static final float CENTER_Y_BLOCKS = 0.75f;   // torso centre in model space
     private static final float UFO_DROP_BLOCKS = 0.75f;   // how far below the player the plate sits
     private static final float SCALE = 1.0f;
+
+    private static final int OVERLAY = 655360; // = OverlayTexture.DEFAULT_UV
 
     private final ModelPart hull, glass, lights;
 
@@ -52,10 +52,10 @@ public class UfoFeatureRenderer extends FeatureRenderer<PlayerEntityRenderState,
 
         lights.yaw = state.age * 0.15f;
 
-        queue.submitModelPart(hull, matrices, RenderLayer.getEntityCutoutNoCull(HULL), light, OverlayTexture.DEFAULT_UV, null);
-        queue.submitModelPart(lights, matrices, RenderLayer.getEntityCutoutNoCull(LIGHTS),
-            LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV, null);
-        queue.submitModelPart(glass, matrices, RenderLayer.getEntityTranslucent(GLASS), light, OverlayTexture.DEFAULT_UV, null);
+        queue.submitModelPart(hull, matrices, getContextModel().getLayer(HULL), light, OVERLAY, null);
+        queue.submitModelPart(lights, matrices, getContextModel().getLayer(LIGHTS),
+            LightmapTextureManager.MAX_LIGHT_COORDINATE, OVERLAY, null);
+        queue.submitModelPart(glass, matrices, getContextModel().getLayer(GLASS), light, OVERLAY, null);
 
         matrices.pop();
     }

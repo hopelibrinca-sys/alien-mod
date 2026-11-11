@@ -26,19 +26,19 @@ public final class AlienModel {
             .cuboid(2.5f, -19, -0.5f, 1, 5, 1),
             ModelTransform.NONE);
         head.addChild("jaw", ModelPartBuilder.create().cuboid(-3, 0, -1, 6, 2.5f, 5),
-            ModelTransform.pivot(0, -2.5f, -3));
+            ModelTransform.of(0, -2.5f, -3, 0, 0, 0));
         skin.addChild("right_arm", ModelPartBuilder.create()
-            .cuboid(-1, -2, -1.5f, 3, 12, 3).cuboid(-1.5f, 10, -2, 4, 3, 4), ModelTransform.pivot(-5, 2, 0));
+            .cuboid(-1, -2, -1.5f, 3, 12, 3).cuboid(-1.5f, 10, -2, 4, 3, 4), ModelTransform.of(-5, 2, 0, 0, 0, 0));
         skin.addChild("left_arm", ModelPartBuilder.create()
-            .cuboid(-2, -2, -1.5f, 3, 12, 3).cuboid(-2.5f, 10, -2, 4, 3, 4), ModelTransform.pivot(5, 2, 0));
-        skin.addChild("right_leg", ModelPartBuilder.create().cuboid(-2, 10, -3.5f, 4, 2, 6), ModelTransform.pivot(-1.9f, 12, 0));
-        skin.addChild("left_leg",  ModelPartBuilder.create().cuboid(-2, 10, -3.5f, 4, 2, 6), ModelTransform.pivot(1.9f, 12, 0));
+            .cuboid(-2, -2, -1.5f, 3, 12, 3).cuboid(-2.5f, 10, -2, 4, 3, 4), ModelTransform.of(5, 2, 0, 0, 0, 0));
+        skin.addChild("right_leg", ModelPartBuilder.create().cuboid(-2, 10, -3.5f, 4, 2, 6), ModelTransform.of(-1.9f, 12, 0, 0, 0, 0));
+        skin.addChild("left_leg",  ModelPartBuilder.create().cuboid(-2, 10, -3.5f, 4, 2, 6), ModelTransform.of(1.9f, 12, 0, 0, 0, 0));
 
         // ---------- SUIT ----------
         ModelPartData suit = root.addChild("suit", ModelPartBuilder.create(), ModelTransform.NONE);
         suit.addChild("body", ModelPartBuilder.create().cuboid(-3, 0, -2, 6, 12, 4), ModelTransform.NONE);
-        suit.addChild("right_leg", ModelPartBuilder.create().cuboid(-1.5f, 0, -1.5f, 3, 10, 3), ModelTransform.pivot(-1.9f, 12, 0));
-        suit.addChild("left_leg",  ModelPartBuilder.create().cuboid(-1.5f, 0, -1.5f, 3, 10, 3), ModelTransform.pivot(1.9f, 12, 0));
+        suit.addChild("right_leg", ModelPartBuilder.create().cuboid(-1.5f, 0, -1.5f, 3, 10, 3), ModelTransform.of(-1.9f, 12, 0, 0, 0, 0));
+        suit.addChild("left_leg",  ModelPartBuilder.create().cuboid(-1.5f, 0, -1.5f, 3, 10, 3), ModelTransform.of(1.9f, 12, 0, 0, 0, 0));
 
         // ---------- DARK ----------
         ModelPartData dark = root.addChild("dark", ModelPartBuilder.create(), ModelTransform.NONE);

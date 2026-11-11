@@ -4,14 +4,12 @@ import com.alienmod.AlienClient;
 import com.alienmod.AlienRenderState;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
-import net.minecraft.client.texture.OverlayTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
@@ -34,7 +32,12 @@ public class AlienBodyFeatureRenderer extends FeatureRenderer<PlayerEntityRender
     }
 
     private static void copy(ModelPart group, ModelPart vanillaRoot, String... names) {
-        for (String n : names) group.getChild(n).copyTransform(vanillaRoot.getChild(n));
+        for (String n : names) {
+            ModelPart dst = group.getChild(n);
+            ModelPart src = vanillaRoot.getChild(n);
+            dst.pivotX = src.pivotX; dst.pivotY = src.pivotY; dst.pivotZ = src.pivotZ;
+            dst.pitch = src.pitch;   dst.yaw = src.yaw;       dst.roll = src.roll;
+        }
     }
 
     @Override
@@ -52,11 +55,11 @@ public class AlienBodyFeatureRenderer extends FeatureRenderer<PlayerEntityRender
         // Open the jaw based on voice volume
         skin.getChild("head").getChild("jaw").pitch = a.alien$getMouth() * 0.5f * MAX_JAW;
 
-        int overlay = OverlayTexture.DEFAULT_UV;
-        queue.submitModelPart(skin, matrices, RenderLayer.getEntityCutoutNoCull(SKIN), light, overlay, null);
-        queue.submitModelPart(suit, matrices, RenderLayer.getEntityCutoutNoCull(SUIT), light, overlay, null);
-        queue.submitModelPart(dark, matrices, RenderLayer.getEntityCutoutNoCull(DARK), light, overlay, null);
-        queue.submitModelPart(glow, matrices, RenderLayer.getEntityCutoutNoCull(GLOW),
+        int overlay = 655360; // = OverlayTexture.DEFAULT_UV (no hurt tint)
+        queue.submitModelPart(skin, matrices, getContextModel().getLayer(SKIN), light, overlay, null);
+        queue.submitModelPart(suit, matrices, getContextModel().getLayer(SUIT), light, overlay, null);
+        queue.submitModelPart(dark, matrices, getContextModel().getLayer(DARK), light, overlay, null);
+        queue.submitModelPart(glow, matrices, getContextModel().getLayer(GLOW),
             LightmapTextureManager.MAX_LIGHT_COORDINATE, overlay, null);
     }
 }
